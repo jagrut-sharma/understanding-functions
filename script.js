@@ -1,5 +1,7 @@
 'use strict';
 
+// Call and Apply method
+
 const airIndia = {
   airline: 'Air India',
   code: 'AI',
@@ -20,7 +22,7 @@ airIndia.book(101, 'Jagrut Sharma');
 airIndia.book(152, 'John Doe');
 
 const bookFlight = airIndia.book;
-console.log(bookFlight);
+// console.log(bookFlight);
 
 const kingfisher = {
   airline: 'King Fisher',
@@ -38,7 +40,60 @@ console.log(airIndia);
 console.log(kingfisher);
 
 bookFlight.apply(kingfisher, [256, 'M.S. Dhoni']);
-bookFlight.call(kingfisher, ...[256, 'Jagrut Sharma']); // Using spread operator with call function gives same result. => also it is better practice to pass these after storing in variables as they will then refer to same array object.
+bookFlight.call(kingfisher, ...[256, 'Jagrut Sharma']); // Using spread operator with call function gives same result. => also it is better practice to pass these after storing in variables as they will then refer to the same array object.
+
+const emirates = {
+  airline: 'Emirates Airlines',
+  code: 'EA',
+  bookings: [],
+};
+
+// Bind method
+
+const bookAI = bookFlight.bind(emirates); // here bookAI is fixed.
+bookAI(301, 'Mithali Raj'); // We no longer need to specify where "this" should be pointed
+console.log(emirates);
+const bookAI301 = bookFlight.bind(emirates, 301);
+bookAI301('Smriti Mandhana');
+bookAI301('Harmanpeet Kaur');
+bookAI301('Sunil Chhetri');
+
+// with event listeners
+
+emirates.plane = 200;
+emirates.buyNewPlane = function () {
+  // console.log(this);
+  this.plane++;
+  console.log(this.plane);
+};
+
+// document.querySelector('.buy').addEventListener('click', emirates.buyNewPlane); // will gove NaN as "this" --> element, event is attached to.
+
+document
+  .querySelector('.buy')
+  .addEventListener('click', emirates.buyNewPlane.bind(emirates));
+
+const taxCharge = (rate, value) => value + value * rate;
+
+console.log(taxCharge(0.3, 100));
+console.log(taxCharge(0.1, 10));
+
+const chargeGST = taxCharge.bind(null, 0.18);
+
+console.log(chargeGST(100));
+console.log(chargeGST(500));
+
+// can also be done using single function
+
+const taxRate = function (rate) {
+  return function (value) {
+    return value + value * rate;
+  };
+};
+
+const newGST = taxRate(0.2);
+console.log(newGST(100));
+console.log(newGST(500));
 
 /*
 const greet = function (prefix) {
