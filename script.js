@@ -1,6 +1,30 @@
 'use strict';
 
+//Closures
+
+/*
 // IIFE (immediately Invoked Function Expression)
+
+const runOnce = function () {
+  console.log(`This will run once`);
+};
+
+runOnce();
+runOnce();
+
+(function () {
+  console.log(`run once`);
+})();
+
+(() => console.log(`This will also run once.`))();
+
+if (true) {
+  const isPrivate = true;
+  var notPrivateNumber = 10;
+}
+
+// console.log(isPrivate); // Throws reference error as const not accessible
+console.log(notPrivateNumber); // var is accessible.
 
 /*
 // Coding challenge-1
