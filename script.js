@@ -1,6 +1,66 @@
 'use strict';
 
+// More examples about closures
+
+let f;
+
+const g = function () {
+  const a = 20;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 30;
+  f = function () {
+    console.log(b * 3);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+// Assigning another variable
+h();
+f();
+console.dir(f);
+
+const boardPassengers = function (numPassengers, waitingTime) {
+  const group = numPassengers / 3;
+  setTimeout(function () {
+    console.log(
+      `We have begun boarding procedure for ${numPassengers} passengers.`
+    );
+    console.log(`We will take groups of ${group} people each.`);
+  }, waitingTime * 1000);
+
+  console.log(`We will begin boarding procedure in ${waitingTime} minutes.`);
+};
+
+const group = 270; // When above group variable is not availavble, then it will search through scope chain.
+boardPassengers(180, 3);
+
+/*
 //Closures
+
+const secureBooking = function () {
+  let passengerCount = 0;
+
+  return function () {
+    passengerCount++;
+    console.log(`Passesngers present: ${passengerCount}`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+booker();
+booker();
+
+console.dir(secureBooking);
+console.dir(booker); // See in scopes --> Closures are available --> passengersCount is available.
 
 /*
 // IIFE (immediately Invoked Function Expression)
