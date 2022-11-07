@@ -1,5 +1,58 @@
 'use strict';
 
+// IIFE (immediately Invoked Function Expression)
+
+/*
+// Coding challenge-1
+
+const poll = {
+  question: 'What is your favourite programming language?',
+  option: ['0: Javascript', '1: Python', '2. Rust', '3. C++'],
+  answers: new Array(4).fill(0),
+};
+
+poll.displayNewAnswers = function () {
+  // let optionString = '';
+  // for (const ele of this.option) {
+  //   optionString += ele + '\n';
+  // }
+  // const question = this.question + '\n' + optionString;
+  const userFavLang = prompt(`${this.question}\n${this.option.join('\n')}`);
+
+  const userAns = this.checkValid(userFavLang.trim());
+  this.result(userAns);
+};
+
+poll.checkValid = function (answer) {
+  if (answer === '') alert(`Enter value between o and 3`);
+  else return Number(answer);
+};
+
+poll.result = function (answer) {
+  if (answer >= 0 && answer < 4) {
+    let currValue = this.answers[answer];
+    currValue++;
+    this.answers[answer] = currValue;
+    poll.displayResults('string');
+  } else alert(`Enter value between o and 3`);
+};
+
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.displayNewAnswers.bind(poll));
+
+poll.displayResults = function (nature = 'array') {
+  if (nature === 'array') console.log(this.answers);
+  else {
+    console.log(`Poll results are: ${[...this.answers]}`);
+  }
+};
+
+poll.displayResults.call({ answers: [5, 2, 4, 1] });
+poll.displayResults.call({ answers: [5, 2, 4, 1] }, 'string');
+poll.displayResults();
+poll.displayResults(undefined, 'string');
+/*
 // Call and Apply method
 
 const airIndia = {
