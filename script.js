@@ -1,5 +1,49 @@
 'use strict';
 
+// CLosure interesting examples
+
+function x() {
+  for (var i = 0; i <= 5; i++) {
+    setTimeout(() => console.log(i), 3000);
+  }
+}
+
+x(); // prints "6" six times after 3s ==> because till var is stored in global object => by 3s, it's value has become 6 through increment operation.
+
+// Solution
+
+function y() {
+  for (let i = 1; i <= 5; i++) {
+    setTimeout(() => console.log(i), 3500);
+  }
+}
+
+y(); // since let is block scoped ==> creates new copy of i for each iteration ==> creates closure with that iteration ==> Each time, it refers to different memory allocations.
+
+// If we have to compulsory use var
+
+function z() {
+  for (var i = 1; i <= 5; i++) {
+    function close(s) {
+      setTimeout(() => console.log(s), 4000);
+    }
+    close(i);
+  }
+}
+
+z(); // The i is passed in close function ==> creates closure in that iteration
+
+/*function x() {
+  const a = 1;
+  setTimeout(function () {
+    console.log(a);
+  }, 3000); // Remembers the value of a and prints it after 3s.
+  console.log(`Hello World`); // Prints this first as setTimeout is counting time
+}
+
+x();
+
+/*
 // Coding Challenge 2
 
 (function () {
