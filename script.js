@@ -1,6 +1,67 @@
 'use strict';
 
-// CLosure interesting examples
+// Some more  examples of closure:
+
+function sample() {
+  const a = 100;
+  function y() {
+    console.log(a);
+  }
+  return y; // need to return y for sample()() call => otherwise will throw error saying sample(...) is not a function => that basically means that no functions exists within sample.
+}
+
+sample()(); // to directly access y | 100
+
+function outer(b) {
+  const a = 200;
+  return function inner() {
+    console.log(a, b);
+  };
+}
+
+const close = outer('Namastey world');
+close(); // gives same result as outer('Namastey world')(); | 200 'Namastey world'
+
+function outermost() {
+  const a = 1000;
+  return function penultimate(sample) {
+    return function innermost() {
+      const c = 50;
+      console.log(a, sample, c);
+    };
+  };
+}
+
+const closeCheck = outermost()('Hey everyone');
+closeCheck(); // 1000 'Hey everyone' 50
+
+outermost()('Testing')(); // 1000 'Testing' 50
+
+// Using increment counter through constructor
+
+const Counter = function () {
+  // SInce construuctor ==> Good naming practice is to keep first letter capital
+  let count = 0;
+  this.incrementCounter = function () {
+    count++;
+    console.log(count);
+  };
+  this.decrementCounter = function () {
+    count--;
+    console.log(count);
+  };
+};
+
+const counter1 = new Counter(); // "new" keyword is used because we are using constructor function
+
+// Notice that here function is not returned yet it is working
+
+counter1.incrementCounter(); // 1
+counter1.incrementCounter(); // 2
+counter1.incrementCounter(); // 3
+counter1.decrementCounter(); // 2
+
+/*// CLosure interesting examples
 
 function x() {
   for (var i = 0; i <= 5; i++) {
